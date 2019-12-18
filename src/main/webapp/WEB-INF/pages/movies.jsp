@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-    Let fun begins
+    ${movie}
     <h2><a href="/edit">edit page</a> </h2>
 </body>
 </html>
