@@ -1,4 +1,4 @@
-package config;
+package mkozachuk.filmography.config;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
