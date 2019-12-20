@@ -1,6 +1,7 @@
 package mkozachuk.filmography.dao;
 
 import mkozachuk.filmography.model.Movie;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Repository
 public class MovieDAOImpl implements MovieDAO {
 
     private static final AtomicInteger AUTO_ID = new AtomicInteger(0);
