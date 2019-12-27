@@ -1,6 +1,9 @@
 package mkozachuk.filmography.dao;
 
 import mkozachuk.filmography.model.Movie;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -15,36 +18,22 @@ public class MovieDAOImpl implements MovieDAO {
     private static final AtomicInteger AUTO_ID = new AtomicInteger(0);
     private static Map<Integer, Movie> movies = new HashMap<>();
 
-    static{
-        Movie movie = new Movie();
-        movie.setId(AUTO_ID.getAndIncrement());
-        movie.setTitle("Movie_Title");
-        movie.setYear(2010);
-        movie.setGenre("sci-fi");
-        movie.setWatched(true);
-        movies.put(movie.getId(), movie);
+    private SessionFactory sessionFactory;
 
-        Movie movie1 = new Movie();
-        movie1.setId(AUTO_ID.getAndIncrement());
-        movie1.setTitle("Movie_Title1");
-        movie1.setYear(2011);
-        movie1.setGenre("sci-fi");
-        movie1.setWatched(true);
-        movies.put(movie1.getId(), movie1);
-
-        Movie movie2 = new Movie();
-        movie2.setId(AUTO_ID.getAndIncrement());
-        movie2.setTitle("Movie_Title2");
-        movie2.setYear(2012);
-        movie2.setGenre("sci-fi");
-        movie2.setWatched(true);
-        movies.put(movie1.getId(), movie1);
+    @Autowired
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
-
     @Override
     public List<Movie> allMovies() {
-        return new ArrayList<>(movies.values());
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("from Movie").list();
     }
+
+//    @Override
+//    public List<Movie> allMovies() {
+//        return new ArrayList<>(movies.values());
+//    }
 
     @Override
     public void add(Movie movie) {

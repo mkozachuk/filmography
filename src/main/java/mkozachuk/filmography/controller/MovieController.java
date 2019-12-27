@@ -27,7 +27,7 @@ public class MovieController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView allMovies(){
-        List<Movie> movies = movieService.allFilms();
+        List<Movie> movies = movieService.allMovies();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("movies");
         modelAndView.addObject("moviesList", movies);

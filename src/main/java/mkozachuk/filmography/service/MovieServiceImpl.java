@@ -5,6 +5,7 @@ import mkozachuk.filmography.dao.MovieDAOImpl;
 import mkozachuk.filmography.model.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,7 +21,9 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<Movie> allFilms() {
+    @Transactional
+    @javax.transaction.Transactional
+    public List<Movie> allMovies() {
         return movieDAO.allMovies();
     }
 
