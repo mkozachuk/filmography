@@ -25,9 +25,9 @@ public class MovieDAOImpl implements MovieDAO {
         this.sessionFactory = sessionFactory;
     }
     @Override
-    public List<Movie> allMovies() {
+    public List<Movie> allMovies(int page) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Movie").list();
+        return session.createQuery("from Movie").setFirstResult(10 * (page - 1)).setMaxResults(10).list();
     }
 
     @Override
@@ -52,5 +52,11 @@ public class MovieDAOImpl implements MovieDAO {
     public Movie getById(int id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(Movie.class, id);
+    }
+
+    @Override
+    public int moviesCount() {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("select count(*) from Movie", Number.class).getSingleResult().intValue();
     }
 }

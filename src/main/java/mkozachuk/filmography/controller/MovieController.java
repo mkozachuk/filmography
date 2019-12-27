@@ -5,10 +5,7 @@ import mkozachuk.filmography.service.MovieService;
 import mkozachuk.filmography.service.MovieServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -20,17 +17,25 @@ public class MovieController {
 
     private MovieService movieService;
 
+    private int page;
+
     @Autowired
     public void setMovieService(MovieService movieService) {
         this.movieService = movieService;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView allMovies(){
-        List<Movie> movies = movieService.allMovies();
+    public ModelAndView allMovies(@RequestParam(defaultValue = "1") int page) {
+        List<Movie> films = movieService.allMovies(page);
+        int filmsCount = movieService.moviesCount();
+        int pagesCount = (filmsCount + 9)/10;
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("movies");
-        modelAndView.addObject("moviesList", movies);
+        modelAndView.addObject("page", page);
+        modelAndView.addObject("moviesList", films);
+        modelAndView.addObject("moviesCount", filmsCount);
+        modelAndView.addObject("pagesCount", pagesCount);
+        this.page = page;
         return modelAndView;
     }
 

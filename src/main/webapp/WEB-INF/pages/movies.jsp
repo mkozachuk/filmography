@@ -38,6 +38,15 @@
     </c:forEach>
 </table>
 
+<c:forEach begin="${begin}" end="${end}" step="1" varStatus="i">
+    <c:url value="/" var="url">
+        <c:param name="page" value="${i.index}"/>
+    </c:url>
+    <c:set value="current-page" var="current"/>
+    <c:set value="" var="perspective"/>
+    <a class="${page == i.index ? current : perspective}" href="${url}">${i.index}</a>
+</c:forEach>
+
 <h2>Add</h2>
 <c:url value="/add" var="add"/>
 <a href="${add}">Add new film</a>
