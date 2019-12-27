@@ -22,27 +22,30 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     @Transactional
-    @javax.transaction.Transactional
     public List<Movie> allMovies() {
         return movieDAO.allMovies();
     }
 
     @Override
+    @Transactional
     public void add(Movie movie) {
         movieDAO.add(movie);
     }
 
     @Override
+    @Transactional
     public void edit(Movie movie) {
         movieDAO.edit(movie);
     }
 
     @Override
+    @Transactional
     public void delete(Movie movie) {
         movieDAO.delete(movie);
     }
 
     @Override
+    @Transactional
     public Movie getById(int id) {
         return movieDAO.getById(id);
     }

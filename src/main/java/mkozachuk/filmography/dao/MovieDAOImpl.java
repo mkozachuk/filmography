@@ -30,29 +30,27 @@ public class MovieDAOImpl implements MovieDAO {
         return session.createQuery("from Movie").list();
     }
 
-//    @Override
-//    public List<Movie> allMovies() {
-//        return new ArrayList<>(movies.values());
-//    }
-
     @Override
     public void add(Movie movie) {
-        movie.setId(AUTO_ID.getAndIncrement());
-        movies.put(movie.getId(), movie);
+        Session session = sessionFactory.getCurrentSession();
+        session.persist(movie);
     }
 
     @Override
     public void edit(Movie movie) {
-        movies.put(movie.getId(), movie);
+        Session session = sessionFactory.getCurrentSession();
+        session.update(movie);
     }
 
     @Override
     public void delete(Movie movie) {
-        movies.remove(movie.getId());
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(movie);
     }
 
     @Override
     public Movie getById(int id) {
-        return movies.get(id);
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(Movie.class, id);
     }
 }
